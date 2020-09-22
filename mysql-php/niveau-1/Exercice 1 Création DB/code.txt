@@ -1,0 +1,47 @@
+fournisseurs :
+
+CREATE TABLE formation.fournisseurs
+(
+num_F INT (8),
+nom VARCHAR (40),
+ville VARCHAR (40)
+)
+
+INSERT INTO fournisseurs (num_F, nom, ville) VALUES
+ (0, "Cloud", "Paris"),
+ (1, "Yuffie", "Tokyo"),
+ (2, "Tifa", "Berlin")
+
+produits : 
+
+CREATE TABLE formation.produits
+(
+code_p INT (8),
+libelle VARCHAR (40),
+origine VARCHAR (40),
+couleur VARCHAR (40)
+)
+
+INSERT INTO produits (code_p, libelle, origine, couleur) VALUES
+(0,"Épée","France","argent"),
+(1,"Shuriken","Japon","noir"),
+(2, "Cestus", "Allemagne", "marron"),
+(3, "Pistolet", "Transylvanie", "argent")
+
+
+fournitures :
+
+CREATE TABLE formation.fournitures
+(
+num_F INT (8),
+code_p INT (8),
+quantite INT (8)
+)
+
+INSERT INTO fournisseurs (num_F, code_p, quantite) VALUES
+(0, 0, 2),
+(1, 1, 1),
+(2, 2, 3),
+(3, 3, 5),
+(4, 4, 2),
+(5, 5, 2)

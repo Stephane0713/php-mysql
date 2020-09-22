@@ -1,0 +1,55 @@
+Exo 1:
+
+INSERT INTO `client` (codeClient, nom, cpclient, villeclient, tel)
+VALUES
+("a1", "Charles", "06600", "Antibes", "0600000000")
+("a2", "Lucie", "13052", "Lorem", "0601000000"),
+("a3", "Jack", "05500", "Ipsum", "0600120000"),
+("a4", "Nina", "12500", "Dolor", "0604560000"),
+("a5", "Jean", "45600", "Sit", "0600000200")
+
+INSERT INTO echantillon (codeEchantillon, dateEntree, codeClient)
+VALUES
+(1, '2010-02-28', "a1"),
+(2, '2012-03-25', "a2"),
+(3, '2014-10-03', "a3"),
+(4, '2015-10-05', "a4"),
+(5, '2016-05-10', "a5")
+
+INSERT INTO typeanalyse (designation, prixTypeAnalyse)
+VALUES
+("type1", 70.50),
+("type2", 90.50),
+("type3", 60.50)
+
+INSERT INTO realiser (codeEchantillon, refTypeAnalyse, dateRealisation)
+VALUES
+(1, 2, '2010-03-28'),
+(2, 3, '2012-04-25'),
+(3, 3, '2014-11-03'),
+(4, 1, '2015-10-05'),
+(5, 1, NULL)
+
+Exo 2:
+UPDATE typeanalyse
+SET prixTypeAnalyse = prixTypeAnalyse * 1.1
+
+Exo 3:
+UPDATE typeanalyse
+SET prixTypeAnalyse = 80
+WHERE prixTypeAnalyse < 80
+
+Exo 4:
+UPDATE realiser
+SET dateRealisation = DATE(NOW())
+WHERE dateRealisation IS NULL
+
+Exo 5:
+UPDATE `client`
+SET tel = "0611111111"
+WHERE codeClient = "c1"
+
+Exo 6:
+UPDATE echantillon
+SET dateEntree = '2006-02-01'
+WHERE dateEntree = '2007-02-01'
