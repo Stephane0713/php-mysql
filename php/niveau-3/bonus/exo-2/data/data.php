@@ -9,7 +9,7 @@ $data = [
     [
         "name" => "Toy Simulator",
         "img" => "toy.jpg",
-        "note" => 1
+        "note" => null
     ],
     [
         "name" => "Canard Simulator",
@@ -17,5 +17,3 @@ $data = [
         "note" => 5
     ],
 ];
-
-?>
