@@ -2,10 +2,10 @@
 
 if (isset($_POST["submit"])) {
 
-    $login = $_POST["login"];
+    $login = htmlspecialchars($_POST["login"]);
     $isValidLogin = !empty($login);
 
-    $password = $_POST["password"];
+    $password = htmlspecialchars($_POST["password"]);
     $isValidPassword = !empty($password);
 
     $isValidAll = $isValidLogin && $isValidPassword;
@@ -13,11 +13,9 @@ if (isset($_POST["submit"])) {
     if ($isValidAll) {
         try {
             $database = new PDO("mysql:host=localhost;dbname=nv2_mysql-php;charset=utf8", "root", "");
-            $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $err) {
             die("Erreur:" . $err->getMessage());
         }
-
         $insertReq = $database->prepare("INSERT INTO connexions (login, password) VALUES (:login, :password)");
         $insertReq->bindValue(':login', $login);
         $insertReq->bindValue(':password', $password);
