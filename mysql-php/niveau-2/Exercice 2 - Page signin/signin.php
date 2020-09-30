@@ -13,7 +13,7 @@ if (isset($_POST["submit"])) {
     $password = htmlspecialchars($_POST["password"]);
     $password_confirm = htmlspecialchars($_POST["password_confirm"]);
     $isValidPassword = !empty($password) && $password === $password_confirm;
-    $passwordHash = password_hash(htmlspecialchars($password), PASSWORD_DEFAULT);
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
     $isPro = htmlspecialchars($_POST["isPro"]);
     $isValidPro = !empty($isPro);
