@@ -7,12 +7,14 @@ if (!isset($_SESSION["id"])) {
             die("Erreur:" . $err->getMessage());
         }
 
-        $req = $database->prepare("SELECT token FROM reinitialiser WHERE utilisateur_id = ?");
+        $req = $database->prepare("SELECT * FROM reinitialiser WHERE utilisateur_id = ?");
         $req->execute([$_GET["id"]]);
         $data = $req->fetch(PDO::FETCH_ASSOC);
 
         if ($data["token"] !== $_GET["token"]) {
             header("Location: error.php");
+            echo $data["token"];
+            echo $_GET["token"];
         } else {
             session_start();
             $_SESSION["id"] = $_GET["id"];
@@ -22,6 +24,7 @@ if (!isset($_SESSION["id"])) {
 }
 
 session_start();
+
 if (isset($_POST["submit"])) {
     $password = htmlspecialchars($_POST["password"]);
     $password_confirm = htmlspecialchars($_POST["password_confirm"]);
@@ -35,13 +38,23 @@ if (isset($_POST["submit"])) {
             die("Erreur:" . $err->getMessage());
         }
 
-        $req = $database->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?");
-        $req->execute([$passwordHash, $_SESSION["id"]]);
-
-        $req = $database->prepare("DELETE FROM reinitialiser WHERE utilisateur_id = ?");
+        $req = $database->prepare("SELECT expire FROM reinitialiser WHERE utilisateur_id = ?");
         $req->execute([$_SESSION["id"]]);
+        $data = $req->fetch(PDO::FETCH_ASSOC);
 
-        header("Location: index.php");
+        if ($data["expire"] < time()) {
+            $req = $database->prepare("DELETE FROM reinitialiser WHERE utilisateur_id = ?");
+            $req->execute([$_SESSION["id"]]);
+            header("Location: error.php");
+        } else {
+            $req = $database->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?");
+            $req->execute([$passwordHash, $_SESSION["id"]]);
+
+            $req = $database->prepare("DELETE FROM reinitialiser WHERE utilisateur_id = ?");
+            $req->execute([$_SESSION["id"]]);
+
+            header("Location: index.php");
+        }
     }
 }
 ?>

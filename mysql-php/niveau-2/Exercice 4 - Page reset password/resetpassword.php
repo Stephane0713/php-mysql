@@ -16,15 +16,20 @@ if (isset($_POST["submit"])) {
 
     if ($data) {
         $id = $data["id"];
-        $token = "aaa";
+        $token = uniqid();
+        $expire = time() + 60;
 
-        $reqReset = $database->prepare("INSERT INTO reinitialiser (utilisateur_id, token) VALUES(?, ?)");
-        $reqReset->execute(array($id, $token));
+        $req = $database->prepare("DELETE FROM reinitialiser WHERE utilisateur_id = ?");
+        $req->execute([$id]);
+
+        $reqReset = $database->prepare("INSERT INTO reinitialiser (utilisateur_id, token, expire) VALUES(?, ?, ?)");
+        $reqReset->execute(array($id, $token, $expire));
 
         $mailTo = "steph@mail.c";
-        $message = "<a href='newpassword.php?id=" . $id . "&token=" . $token . ">
-            Lien vers newpassword.php
-            </a>";
+        $message = "newpassword.php?id=" . $id . "&token=" . $token;
+        // "<a href='newpassword.php?id=" . $id . "&token=" . $token . ">
+        //     Lien vers newpassword.php
+        //     </a>";
 
         mail($mailTo, "Réinitialisation du mot de passe", $message);
     }
