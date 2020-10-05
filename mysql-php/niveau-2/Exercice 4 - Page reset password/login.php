@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
         if (password_verify($password, $data["mot_de_passe"])) {
             session_start();
             $_SESSION["email"] = $login;
-            header("Location: index.php");
+            header("Location: home.php");
         } else {
             echo "error";
         }

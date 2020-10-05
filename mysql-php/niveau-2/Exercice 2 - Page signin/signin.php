@@ -35,7 +35,7 @@ if (isset($_POST["submit"])) {
         $data = $queryReq->fetch();
 
         if (!$data) {
-            $insertReq = $database->prepare("INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, est_professionel) VALUES (:lastname, :firstname, :email, :password, :isPro)");
+            $insertReq = $database->prepare("INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, est_professionnel) VALUES (:lastname, :firstname, :email, :password, :isPro)");
             $insertReq->bindValue(':lastname', $lastname);
             $insertReq->bindValue(':firstname', $firstname);
             $insertReq->bindValue(':email', $email);
