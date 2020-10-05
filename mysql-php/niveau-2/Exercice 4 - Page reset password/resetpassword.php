@@ -30,6 +30,7 @@ if (isset($_POST["submit"])) {
         $message = "http://localhost/formation/mysql-php/niveau-2/Exercice%204%20-%20Page%20reset%20password/newpassword.php?id=" . $id . "&token=" . $token;
 
         send_mail($mailTo, "Réinitialisation du mot de passe", $message);
+        header("Location: login.php");
     }
 }
 
