@@ -15,6 +15,7 @@ if (isset($_POST["submit"])) {
     $data = $req->fetch(PDO::FETCH_ASSOC);
 
     if ($data) {
+        include("./sendemail.php");
         $id = $data["id"];
         $token = uniqid();
         $expire = time() + 60;
@@ -25,13 +26,10 @@ if (isset($_POST["submit"])) {
         $reqReset = $database->prepare("INSERT INTO reinitialiser (utilisateur_id, token, expire) VALUES(?, ?, ?)");
         $reqReset->execute(array($id, $token, $expire));
 
-        $mailTo = "steph@mail.c";
-        $message = "newpassword.php?id=" . $id . "&token=" . $token;
-        // "<a href='newpassword.php?id=" . $id . "&token=" . $token . ">
-        //     Lien vers newpassword.php
-        //     </a>";
+        $mailTo = "stephaneD2205@gmail.com"; //$email
+        $message = "http://localhost/formation/mysql-php/niveau-2/Exercice%204%20-%20Page%20reset%20password/newpassword.php?id=" . $id . "&token=" . $token;
 
-        mail($mailTo, "Réinitialisation du mot de passe", $message);
+        send_mail($mailTo, "Réinitialisation du mot de passe", $message);
     }
 }
 
