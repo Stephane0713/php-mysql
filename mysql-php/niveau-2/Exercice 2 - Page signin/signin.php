@@ -86,7 +86,7 @@ if (isset($_POST["submit"])) {
             <label for="reg">Particulier</label>
         </p>
         <p class="form__group">
-            <input type="radio" name="isPro" value="professionel" id="pro" class="form__input">
+            <input type="radio" name="isPro" value="professionnel" id="pro" class="form__input">
             <label for="pro">Professionnel</label>
         </p>
         <p class="form__group">
