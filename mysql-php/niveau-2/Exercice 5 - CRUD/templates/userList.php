@@ -31,7 +31,6 @@ $users = $tblUsers->getUsers();
                     <td><?= (int) $user["status"] === 1 ? "Professionnel" : "Particulier"; ?></td>
                     <td class="text-right">
                         <a href="?mode=edit&id=<?= $user["id"] ?>" class="btn btn-primary">Modifier</a>
-                        <!-- <a href="?mode=del&id=<?= $user["id"] ?>" class="btn btn-danger">Supprimer</a> -->
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="<?= $user["id"] ?>">Supprimer</button>
                 </tr>
             <?php } ?>
